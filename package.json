@@ -1,0 +1,15 @@
+{
+  "name": "jood-typeko",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "description": "한글 초성, 중성, 종성 구분과 타이핑",
+  "license": "MIT",
+  "scripts": {
+    "bootstrap": "yarn run bootstrap:install && yarn run bootstrap:builds",
+    "bootstrap:install": "yarn install --production=false",
+    "bootstrap:builds": "yarn workspace @jood/typeko-core build"
+  },
+  "keywords": []
+}
