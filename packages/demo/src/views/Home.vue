@@ -18,24 +18,24 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from 'vue';
-import { separateChar, separateString, typingMatrix, typingChar } from '@jood/typeko-core';
+import { characterToken, characterMatrix, typingMatrix, typingToken } from '@jood/typeko-core';
 
 export default defineComponent({
   setup() {
     const testSourceChar = ['푸', '밟', '꿍', '의', '왜'];
-    const testSourceString = ['안녕하세요! Hello 라면을 끓이다.'];
+    const testSourceString = ['안녕하세요! Hello~', '의자가 낡았네요.'];
 
     const state = reactive({
       testList: [],
     });
 
     testSourceChar.forEach((v) => {
-      state.testList.push({ title: 'separateChar', source: v, result: separateChar(v) });
-      state.testList.push({ title: 'typingChar', source: v, result: typingChar(v) });
+      state.testList.push({ title: 'characterToken', source: v, result: characterToken(v) });
+      state.testList.push({ title: 'typingToken', source: v, result: typingToken(v) });
     });
 
     testSourceString.forEach((v) => {
-      state.testList.push({ title: 'separateString', source: v, result: separateString(v) });
+      state.testList.push({ title: 'characterMatrix', source: v, result: characterMatrix(v) });
       state.testList.push({ title: 'typingMatrix', source: v, result: typingMatrix(v) });
     });
 

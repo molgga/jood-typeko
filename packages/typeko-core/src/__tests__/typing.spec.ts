@@ -1,4 +1,4 @@
-import { typingMatrix, typingChar } from '../typing';
+import { typingMatrix, typingToken } from '../typing';
 
 describe('typingMatrix', () => {
   it('타이핑 순서에 맞게 행렬로 분리 되어야 합니다.', () => {
@@ -28,53 +28,53 @@ describe('typingMatrix', () => {
   });
 });
 
-describe('typingChar', () => {
+describe('typingToken', () => {
   it('타이핑 순서에 맞게 일차원 배열로 분리 되어야 합니다.', () => {
-    expect(typingChar('끓')).toEqual(['ㄲ', '끄', '끌', '끓']);
+    expect(typingToken('끓')).toEqual(['ㄲ', '끄', '끌', '끓']);
   });
   it('문자열을 넣는 경우 첫 문자만 분리 되어야 합니다.', () => {
-    expect(typingChar('첫글자')).toEqual(['ㅊ', '처', '첫']);
+    expect(typingToken('첫글자')).toEqual(['ㅊ', '처', '첫']);
   });
-  test('typingChar - "왜"', () => {
-    expect(typingChar('왜')).toEqual(['ㅇ', '오', '왜']);
+  test('typingToken - "왜"', () => {
+    expect(typingToken('왜')).toEqual(['ㅇ', '오', '왜']);
   });
-  test('typingChar - "왜"', () => {
-    expect(typingChar('왜')).toEqual(['ㅇ', '오', '왜']);
+  test('typingToken - "왜"', () => {
+    expect(typingToken('왜')).toEqual(['ㅇ', '오', '왜']);
   });
-  test('typingChar - "외"', () => {
-    expect(typingChar('외')).toEqual(['ㅇ', '오', '외']);
+  test('typingToken - "외"', () => {
+    expect(typingToken('외')).toEqual(['ㅇ', '오', '외']);
   });
-  test('typingChar - "위"', () => {
-    expect(typingChar('위')).toEqual(['ㅇ', '우', '위']);
+  test('typingToken - "위"', () => {
+    expect(typingToken('위')).toEqual(['ㅇ', '우', '위']);
   });
-  test('typingChar - "의"', () => {
-    expect(typingChar('의')).toEqual(['ㅇ', '으', '의']);
+  test('typingToken - "의"', () => {
+    expect(typingToken('의')).toEqual(['ㅇ', '으', '의']);
   });
-  test('typingChar - "깞"', () => {
-    expect(typingChar('깞')).toEqual(['ㄲ', '까', '깝', '깞']);
+  test('typingToken - "깞"', () => {
+    expect(typingToken('깞')).toEqual(['ㄲ', '까', '깝', '깞']);
   });
-  test('typingChar - "밝"', () => {
-    expect(typingChar('밝')).toEqual(['ㅂ', '바', '발', '밝']);
+  test('typingToken - "밝"', () => {
+    expect(typingToken('밝')).toEqual(['ㅂ', '바', '발', '밝']);
   });
-  test('typingChar - "싸"', () => {
-    expect(typingChar('싸')).toEqual(['ㅆ', '싸']);
+  test('typingToken - "싸"', () => {
+    expect(typingToken('싸')).toEqual(['ㅆ', '싸']);
   });
-  test('typingChar - "갔"', () => {
-    expect(typingChar('갔')).toEqual(['ㄱ', '가', '갔']);
+  test('typingToken - "갔"', () => {
+    expect(typingToken('갔')).toEqual(['ㄱ', '가', '갔']);
   });
-  test('typingChar - "앉"', () => {
-    expect(typingChar('앉')).toEqual(['ㅇ', '아', '안', '앉']);
+  test('typingToken - "앉"', () => {
+    expect(typingToken('앉')).toEqual(['ㅇ', '아', '안', '앉']);
   });
-  test('typingChar - "A"', () => {
-    expect(typingChar('A')).toEqual(['A']);
+  test('typingToken - "A"', () => {
+    expect(typingToken('A')).toEqual(['A']);
   });
-  test('typingChar - "!"', () => {
-    expect(typingChar('!')).toEqual(['!']);
+  test('typingToken - "!"', () => {
+    expect(typingToken('!')).toEqual(['!']);
   });
-  test('typingChar - "ㄱ"', () => {
-    expect(typingChar('ㄱ')).toEqual(['ㄱ']);
+  test('typingToken - "ㄱ"', () => {
+    expect(typingToken('ㄱ')).toEqual(['ㄱ']);
   });
-  test('typingChar - " "', () => {
-    expect(typingChar(' ')).toEqual([' ']);
+  test('typingToken - " "', () => {
+    expect(typingToken(' ')).toEqual([' ']);
   });
 });

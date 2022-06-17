@@ -1,3 +1,3 @@
 export * from './types';
-export * from './separate';
+export * from './character';
 export * from './typing';

@@ -4,7 +4,7 @@ import { KR_SOURCE_FIRST, KR_SOURCE_MIDDLE, KR_SOURCE_LAST } from './types';
  * 문자 초/중/종성 분리
  * @param char
  */
-export function separateChar(char: string) {
+export function characterToken(char: string) {
   const arr: string[] = [];
   const charCode = char.charCodeAt(0);
   if (charCode < 44032 || 55203 < charCode) {
@@ -28,10 +28,10 @@ export function separateChar(char: string) {
  * 문자열 초/중/종성 분리
  * @param str
  */
-export function separateString(str: string) {
+export function characterMatrix(str: string) {
   const arr: string[][] = [];
   str.split('').forEach((char) => {
-    arr.push(separateChar(char));
+    arr.push(characterToken(char));
   });
   return arr;
 }

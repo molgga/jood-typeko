@@ -3,12 +3,12 @@ import { KR_SOURCE_FIRST, KR_WORD_START_AT, KR_WORD_END_AT } from './types';
 export function typingMatrix(sourceStr: string) {
   const arr: string[][] = [];
   sourceStr.split('').forEach((char) => {
-    arr.push(typingChar(char));
+    arr.push(typingToken(char));
   });
   return arr;
 }
 
-export function typingChar(sourceChar: string) {
+export function typingToken(sourceChar: string) {
   const char = sourceChar.substring(0, 1);
   const codeAt = char.charCodeAt(0);
   const charArr: string[] = [];
