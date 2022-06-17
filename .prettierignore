@@ -1,0 +1,10 @@
+.nuxt/
+node_modules/
+dist/
+index.html
+gif.js
+gif.worker.js
+*.md
+*.yml
+*.sh
+*.spec.ts

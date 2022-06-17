@@ -8,5 +8,5 @@ export const KR_SOURCE_MIDDLE = Object.freeze(['ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ'
 export const KR_SOURCE_LAST = Object.freeze(['', 'ㄱ', 'ㄲ', 'ㄳ', 'ㄴ', 'ㄵ', 'ㄶ', 'ㄷ', 'ㄹ', 'ㄺ', 'ㄻ', 'ㄼ', 'ㄽ', 'ㄾ', 'ㄿ', 'ㅀ', 'ㅁ', 'ㅂ', 'ㅄ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ']);
 
 // charCodeAt 한글(단어) 범위
-export const KR_WORD_START_AT = 44032
-export const KR_WORD_END_AT = 55203
+export const KR_WORD_START_AT = 44032;
+export const KR_WORD_END_AT = 55203;
