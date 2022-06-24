@@ -9,7 +9,10 @@
   "scripts": {
     "bootstrap": "yarn run bootstrap:install && yarn run bootstrap:builds",
     "bootstrap:install": "yarn install --production=false",
-    "bootstrap:builds": "yarn workspace @jood/typeko-core build"
+    "bootstrap:builds": "yarn run build:typeko-core && yarn run build:typeko-typist",
+    "build:typeko-core": "yarn workspace @jood/typeko-core build",
+    "build:typeko-typist": "yarn workspace @jood/typeko-typist build",
+    "serve:demo": "yarn workspace demo serve"
   },
   "keywords": []
 }

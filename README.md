@@ -110,7 +110,7 @@
 
 ---
 
-# @jood/typeko-typing
+# @jood/typeko-typist
 
 > 문자(한글) 타이핑
 
