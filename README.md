@@ -112,6 +112,25 @@
 
 # @jood/typeko-typist
 
-> 문자(한글) 타이핑
+> 문자(한글) 입력기
 
-...ing...
+## ManualTypist
+
+```typescript
+const source = `안녕하세요. 반갑습니다 😎
+가끔 필요할때가 있어서 만들어 봅니다.
+하하하 쓸 말이 없군요. 안뇽~`;
+
+const manual = new ManualTypist();
+manual.observe().subscribe((evt) => {
+  console.log(evt);
+});
+manual.setSourceMatrix(typingMatrix(source));
+manual.setTypingSpeed(30, 40);
+manual.addDelayByEqual('\n', 120);
+manual.addDelayByEqual('.', 100);
+manual.start();
+// manual.pause();
+// manual.resume();
+// manual.destroy();
+```
