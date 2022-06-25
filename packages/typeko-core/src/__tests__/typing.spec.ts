@@ -77,4 +77,8 @@ describe('typingToken', () => {
   test('typingToken - " "', () => {
     expect(typingToken(' ')).toEqual([' ']);
   });
+
+  test('typingToken - "😎"', () => {
+    expect(typingToken('😎')).toEqual(['😎']);
+  });
 });

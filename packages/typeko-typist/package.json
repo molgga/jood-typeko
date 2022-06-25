@@ -11,6 +11,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rollup -c",
+    "build:watch": "rollup -c -w",
     "test:unit": "jest"
   },
   "dependencies": {

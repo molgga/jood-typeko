@@ -22,8 +22,8 @@ import { characterToken, characterMatrix, typingMatrix, typingToken } from '@joo
 
 export default defineComponent({
   setup() {
-    const testSourceChar = ['푸', '밟', '꿍', '의', '왜'];
-    const testSourceString = ['안녕하세요! Hello~', '의자가 낡았네요.'];
+    const testSourceChar = ['푸', '밟', '꿍', '의', '왜', '😎'];
+    const testSourceString = ['안녕하세요 😎 Hello~!', '의자가 낡았네요.'];
 
     const state = reactive({
       testList: [],

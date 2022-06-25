@@ -7,12 +7,18 @@
   "description": "한글 초성, 중성, 종성 구분과 타이핑",
   "license": "MIT",
   "scripts": {
-    "bootstrap": "yarn run bootstrap:install && yarn run bootstrap:builds",
+    "serve:demo": "yarn workspace demo serve",
+    "bootstrap": "yarn run bootstrap:install && yarn run package:build",
     "bootstrap:install": "yarn install --production=false",
-    "bootstrap:builds": "yarn run build:typeko-core && yarn run build:typeko-typist",
-    "build:typeko-core": "yarn workspace @jood/typeko-core build",
-    "build:typeko-typist": "yarn workspace @jood/typeko-typist build",
-    "serve:demo": "yarn workspace demo serve"
+    "package:build": "yarn run typeko-core:build && yarn run typeko-typist:build",
+    "package:build:watch": "yarn run typeko-core:build:watch && yarn run typeko-typist:build:watch",
+    "package:test:unit": "yarn run typeko-core:test:unit && yarn run typeko-typist:test:unit",
+    "typeko-core:build": "yarn workspace @jood/typeko-core build",
+    "typeko-core:build:watch": "yarn workspace @jood/typeko-core build:watch",
+    "typeko-core:test:unit": "yarn workspace @jood/typeko-core test:unit",
+    "typeko-typist:build": "yarn workspace @jood/typeko-typist build",
+    "typeko-typist:build:watch": "yarn workspace @jood/typeko-typist build:watch",
+    "typeko-typist:test:unit": "yarn workspace @jood/typeko-typist test:unit"
   },
   "keywords": []
 }

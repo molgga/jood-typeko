@@ -43,6 +43,10 @@ describe('characterToken', () => {
   test('characterToken - "ㅠ"', () => {
     expect(characterToken('ㅠ')).toEqual(['ㅠ']);
   });
+
+  test('characterToken - "😎"', () => {
+    expect(characterToken('😎')).toEqual(['😎']);
+  });
 });
 
 describe('characterMatrix', () => {
