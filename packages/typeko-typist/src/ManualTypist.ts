@@ -6,20 +6,20 @@ import { delay } from './utils';
  * 수동 타이핑 입력기
  */
 export class ManualTypist {
-  protected sourceMatrix: string[][];
-  protected sourceTypingTotal = 0;
-  protected sourceFinished = '';
-  protected sourceOutput = '';
-  protected subject: Subject<TypistEvent>;
-  protected counterRow = 0;
-  protected counterColumn = 0;
-  protected counterTyping = 0;
-  protected speedMin = 0;
-  protected speedMax = 100;
-  protected delayByEquals: DelayEqual[] = [];
-  protected startId: number = null;
-  protected isPaused = false;
-  protected output = '';
+  private sourceMatrix: string[][];
+  private sourceTypingTotal = 0;
+  private sourceFinished = '';
+  private sourceOutput = '';
+  private output = '';
+  private processId: number = null;
+  private subject: Subject<TypistEvent>;
+  private indexRow = 0;
+  private indexColumn = 0;
+  private indexTyping = 0;
+  private speedMin = 0;
+  private speedMax = 100;
+  private delayByEquals: DelayEqual[] = [];
+  private isPaused = false;
 
   constructor() {
     this.subject = new Subject();
@@ -32,19 +32,22 @@ export class ManualTypist {
     return this.subject.asObservable();
   }
 
+  /**
+   * 상태값
+   */
   getState() {
     return {
       sourceMatrix: this.sourceMatrix,
       sourceTypingTotal: this.sourceTypingTotal,
       sourceFinished: this.sourceFinished,
       sourceOutput: this.sourceOutput,
-      counterRow: this.counterRow,
-      counterColumn: this.counterColumn,
-      counterTyping: this.counterTyping,
+      indexRow: this.indexRow,
+      indexColumn: this.indexColumn,
+      indexTyping: this.indexTyping,
       speedMin: this.speedMin,
       speedMax: this.speedMax,
       delayByEquals: this.delayByEquals,
-      startId: this.startId,
+      processId: this.processId,
       isPaused: this.isPaused,
     };
   }
@@ -67,9 +70,9 @@ export class ManualTypist {
    * @param min 최소 시간(ms)
    * @param max 최대 시간(ms)
    */
-  setTypingSpeed(min = 0, max: number) {
-    this.speedMin = min;
-    this.speedMax = max;
+  setTypingSpeed(min = 0, max = 0) {
+    this.speedMin = Math.min(min, max);
+    this.speedMax = Math.max(min, max);
   }
 
   /**
@@ -121,38 +124,34 @@ export class ManualTypist {
   /**
    * 1회의 타이핑을 진행합니다.
    */
-  protected async next(startId: number) {
-    const columns = this.sourceMatrix[this.counterRow];
+  private async next(processId: number) {
+    const columns = this.sourceMatrix[this.indexRow];
     const columnsLen = columns.length;
-    const char = columns[this.counterColumn];
+    const char = columns[this.indexColumn];
     const delayEqual = this.findDelayByEqual(char);
     await delay(this.getTypingSpeed());
-
-    if (this.startId !== startId) return;
+    if (this.processId !== processId) return; // 재시작을 하는 경우와 같이 processId 가 변경된 경우 진행을 막는다.
 
     this.output += char;
-    this.counterTyping++;
-    if (this.startId === startId) {
-      this.dispatchType(TypistEventType.OUT_PUT);
-      if (delayEqual) {
-        await delay(delayEqual.delay);
-      }
+    this.indexTyping++;
+    this.dispatchType(TypistEventType.OUT_PUT);
+    if (delayEqual) {
+      await delay(delayEqual.delay);
     }
 
-    if (this.startId === startId) {
-      if (this.counterColumn < columnsLen - 1) {
-        this.output = this.output.substring(0, this.output.length - 1);
-        this.counterColumn++;
-      } else {
-        this.counterRow++;
-        this.counterColumn = 0;
-      }
-      if (this.sourceMatrix.length <= this.counterRow) {
-        this.dispatchType(TypistEventType.FINISHED);
-      } else {
-        if (!this.isPaused) {
-          this.next(startId);
-        }
+    if (this.processId !== processId) return;
+    if (this.indexColumn < columnsLen - 1) {
+      this.output = this.output.substring(0, this.output.length - 1);
+      this.indexColumn++;
+    } else {
+      this.indexRow++;
+      this.indexColumn = 0;
+    }
+    if (this.sourceMatrix.length <= this.indexRow) {
+      this.dispatchType(TypistEventType.FINISHED);
+    } else {
+      if (!this.isPaused) {
+        this.next(processId);
       }
     }
   }
@@ -160,14 +159,14 @@ export class ManualTypist {
   /**
    * 타이핑시 이벤트를 전파합니다.
    */
-  protected dispatchType(type: TypistEventType) {
+  private dispatchType(type: TypistEventType) {
     this.sourceOutput = this.output;
     this.subject.next({
       type,
       value: this.output,
-      rowIndex: this.counterRow,
-      columnIndex: this.counterColumn,
-      typingIndex: this.counterTyping,
+      rowIndex: this.indexRow,
+      columnIndex: this.indexColumn,
+      typingIndex: this.indexTyping,
       typingTotal: this.sourceTypingTotal,
     });
   }
@@ -177,12 +176,12 @@ export class ManualTypist {
    */
   start() {
     this.isPaused = false;
-    this.counterRow = 0;
-    this.counterColumn = 0;
-    this.counterTyping = 0;
+    this.indexRow = 0;
+    this.indexColumn = 0;
+    this.indexTyping = 0;
     this.output = '';
-    this.startId = this.startId + 1;
-    this.next(this.startId);
+    this.processId++;
+    this.next(this.processId);
   }
 
   /**
@@ -190,6 +189,7 @@ export class ManualTypist {
    */
   pause() {
     this.isPaused = true;
+    this.processId++;
   }
 
   /**
@@ -198,11 +198,14 @@ export class ManualTypist {
   resume() {
     if (!this.isPaused) return;
     this.isPaused = false;
-    this.next(this.startId);
+    this.next(this.processId);
   }
 
+  /**
+   * 파기
+   */
   destroy() {
-    this.startId = null;
+    this.processId = null;
     this.subject.unsubscribe();
     this.subject = null;
   }

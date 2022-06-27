@@ -117,6 +117,8 @@
 ## ManualTypist
 
 ```typescript
+import { typingMatrix } from '@jood/typeko-core';
+
 const source = `안녕하세요. 반갑습니다 😎
 가끔 필요할때가 있어서 만들어 봅니다.
 하하하 쓸 말이 없군요. 안뇽~`;
